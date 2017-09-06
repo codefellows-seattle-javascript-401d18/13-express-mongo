@@ -49,6 +49,10 @@ Using node.js, HTTP, superagent, Express, MongoDB, and Mongoose I have created a
   + Example.==>`http GET localhost:3000/api/toy/idNumber`
   + Example w/ Mock ID ==> `http GET localhost:3000/api/toy/ee30e86a-36ee-4843-b47e-a252531bac41`
 
+  + *Alternatively to get all documents in collection*
+
+  + `http GET localhost:3000/api/toy`
+
 
   ### PUT requests
   + Example ==>`http PUT localhost:3000/api/toy/someid name=new name desc=new desc'`
