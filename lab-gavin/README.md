@@ -1,7 +1,7 @@
 # *SeveringUpSomeMongXpresso*
-# Servering the best MongXpresso Experience around.
+## Servering the best MongXpresso Experience around.
 
-# Server request and response demonstration using Express, node.js, and MongoDB.
+## Server request and response demonstration using Express, node.js, and MongoDB.
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
 
 ## Project Description
