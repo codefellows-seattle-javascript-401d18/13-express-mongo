@@ -1,6 +1,7 @@
 {
-  "name": "01-express-middleware-refactor",
+  "name": "00-code-review-express-middleware",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "directories": {
     "lib": "lib"
@@ -44,6 +45,5 @@
     "http-errors": "^1.6.2",
     "mongoose": "^4.11.10",
     "uuid": "^3.1.0"
-  },
-  "description": ""
+  }
 }
