@@ -36,7 +36,7 @@ describe('Testing toy routes', function() {
           expect(this.mockToy.desc).toBe('purple dino')
         })
         test('should have an _id, given a valid request', () => {
-          expect(this.mockToy._id).toMatch(/([a-f0-9]{8}(-[a-f\d]{4}){3}-[a-f\d]{12}?)/i)
+          expect(this.mockToy._id).toMatch(/([a-f0-9]{24})/i)
         })
         test('should return a 201 CREATED, given a valid request', () => {
           expect(this.resPost.status).toBe(201)
