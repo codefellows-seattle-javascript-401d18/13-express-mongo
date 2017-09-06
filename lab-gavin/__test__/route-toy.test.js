@@ -69,13 +69,25 @@ describe('Testing toy routes', function() {
       });
     });
     describe('GET requests', () => {
-      describe('Valid Requests', () => {
+      describe('Valid Requests for specific ID', () => {
         test('should get the record from the toy dir', done => {
           superagent.get(`localhost:3000/api/toy/${this.mockToy._id}`)
             .type('application/json')
             .end((err, res) => {
               expect(res.body.name).toEqual('barney');
               expect(res.body.desc).toEqual('purple dino');
+              expect(res.status).toEqual(200);
+              done();
+            });
+        });
+      });
+      describe('Valid Requests for all documents', () => {
+        test('should get the record from the toy dir', done => {
+          superagent.get(`localhost:3000/api/toy`)
+            .type('application/json')
+            .end((err, res) => {
+              expect(res.body[res.body.length - 1].name).toEqual('barney');
+              expect(res.body[res.body.length - 1].desc).toEqual('purple dino');
               expect(res.status).toEqual(200);
               done();
             });
