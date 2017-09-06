@@ -69,21 +69,61 @@ describe('Testing toy routes', function() {
       });
     });
     describe('GET requests', () => {
-      test('should get the record from the toy dir', done => {
-        superagent.get(`localhost:3000/api/toy/${this.mockToy._id}`)
+      describe('Valid Requests', () => {
+        test('should get the record from the toy dir', done => {
+          superagent.get(`localhost:3000/api/toy/${this.mockToy._id}`)
+            .type('application/json')
+            .end((err, res) => {
+              expect(res.body.name).toEqual('barney');
+              expect(res.body.desc).toEqual('purple dino');
+              expect(res.status).toEqual(200);
+              done();
+            });
+        });
+      });
+      describe('Invalid Requests', () => {
+        test('should return 500 for bad ID', done => {
+          superagent.get(`localhost:3000/api/toy/33533636`)
+            .type('application/json')
+            .end((err, res) => {
+              expect(res.status).toEqual(500);
+              done();
+            });
+        });
+        test('should return 404 error for bad endpoint', done => {
+          superagent.get(`localhost:3000/toy/toy/33533636`)
+            .type('application/json')
+            .end((err, res) => {
+              expect(res.status).toEqual(404);
+              done();
+            });
+        });
+      });
+    });
+    describe('PUT requests', () => {
+      test('should update existing record when provided valid ID', done => {
+        superagent.put(`localhost:3000/api/toy/${this.mockToy._id}`)
           .type('application/json')
           .end((err, res) => {
-            expect(res.body.name).toEqual('barney');
-            expect(res.body.desc).toEqual('purple dino');
             expect(res.status).toEqual(200);
             done();
           });
       });
-    });
-    describe('PUT requests', () => {
-      test('should have ...', done => {
-
-        done();
+      test('should return 404 on bad endpoint', done => {
+        superagent.put(`localhost:3000/toy/api/${this.mockToy._id}`)
+          .type('application/json')
+          .end((err, res) => {
+            expect(res.status).toEqual(404);
+            done();
+          });
+      });
+      test('should return 500 with bad ID', done => {
+        superagent.put(`localhost:3000/api/toy/39750395`)
+          .type('application/json')
+          .end((err, res) => {
+            expect(res.status).toEqual(500);
+            done();
+          });
       });
     });
     describe('#DELETE', () => {
