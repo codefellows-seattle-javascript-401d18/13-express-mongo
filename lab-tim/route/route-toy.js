@@ -24,15 +24,15 @@ module.exports = function(router) {
   router.get('/api/toy', (req, res, next) => {
     debug('/api/toy GET all');
 
-    return Toy.find(files => files.map(name => name.split('.json')[0]))
+    return Toy.find()
       .then(toy => res.status(200).json(toy))
       .catch(next);
   });
 
-  router.put('/api/toy', (req, res, next) => {
+  router.put('/api/toy/:_id', (req, res, next) => {
     debug('/api/toy PUT');
 
-    return Toy.update(req.body)
+    return Toy.findByIdAndUpdate(req.params._id, req.body)
       .then(toy => res.status(204).json(toy))
       .catch(next);
   });
@@ -40,7 +40,7 @@ module.exports = function(router) {
   router.delete('/api/toy/:_id', (req, res, next) => {
     debug('/api/toy DELETE');
 
-    return Toy.remove(req.params._id)
+    return Toy.findByIdAndRemove(req.params._id)
       //.then(toy => res.status(204).json(toy))
       .then(() => res.sendStatus(204))
       .catch(next);
