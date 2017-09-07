@@ -4,13 +4,13 @@ const debug = require('debug')('http:server');
 
 // setting up express
 const express = require('express');
-const router = express.Router();
 const app = express();
+const router = express.Router();
 debug('shut up debug');
 
 // mongoose setup
 const mongoose = require('mongoose');
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb:localhost/toy-dev';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/toy-dev';
 mongoose.Promise = require('bluebird');
 mongoose.connect(MONGODB_URI, {useMongoClient: true});
 
