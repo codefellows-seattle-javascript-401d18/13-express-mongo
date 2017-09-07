@@ -1,11 +1,19 @@
 # Documentation:
-  * What this project does:
-   The goal of this project is to practice using Mongo.
+
+### What this project does:
+   The goal of this project is to practice using express, Mongo and mongoose.
 
   * We will be able to work with the MongoDB database management system
   * We will understand the primary concepts of working with a NoSQL database management system
   * We will be able to create custom data models *(schemas)* through the use of mongoose.js
   * We will be able to use mongoose.js helper methods for interacting with their database persistence layer
+
+#### Feature Tasks
+  * create an HTTP Server using `express`
+  * create a resource **model** of my choice that uses `mongoose.Schema` and `mongoose.model`
+  * use the `body-parser` express middleware to parse the `req` body on `POST` and `PUT` requests
+  * use the npm `debug` module to log the functions and methods that are being used in my application
+  * use the express `Router` to create a route for doing **RESTFUL CRUD** operations against your _model_
 
 # Any resources that helped me complete this assignment:
 - http://mongoosejs.com/docs/index.html
@@ -19,7 +27,7 @@
           3. Then start up nodemon in a separate terminal window.
 
 
-HOW TO TEST POST IN TERMINAL:
+HOW TO TEST POST IN Mongo:
 
 
 HOW TO TEST GET with Mongo:
@@ -36,6 +44,15 @@ HOW TO TEST DELETE IN Mongo:
 
 
 # Packages and commands to remember:
+For Mongo:
+- To install Mongo-- npm install mongodb into your project directory
+- Start the MongoDB process-- mongod
+- Start the MongoDB shell-- mongo
+
+For Mongoose:
+- To install mongoose-- $ npm install mongoose
+
+General:
   - In package.json's scripts, add- "start:debug": "DEBUG=http* nodemon server.js",
   - created an index.js and set it as the start point in package.json
   - deleted parse-url.json and ________
@@ -57,16 +74,20 @@ HOW TO TEST DELETE IN Mongo:
   - npm run debugger -
   - npm install bluebird (sets this as a dependency in package.json) -
 
-  I added the following to my package.json scripts:
+# Notes:
+  - Don't forget to git ignore your `db/` dir
+
+  - I added the following to my package.json scripts:
   "debugger": "node inspect server.js",
 
-  I've added the server.js to the lib directory.
+  - I've added the server.js to the lib directory.
 
-  Then in terminal, within the project directory, type:
+  - Then in terminal, within the project directory, type:
   npm run debugger
-
     - You should then see:
     > node inspect server.js
+
+
 
 # Collaborators:
 Isaac and Said.
