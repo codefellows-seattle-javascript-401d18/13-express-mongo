@@ -29,7 +29,7 @@ module.exports = function(router) {
 
   router.put('/api/toy/:_id', (req, res, next) => {
     debug('/api/toy PUT')
-    Toy.findByIdAndUpdate(req.params._id, req.body)
+    return Toy.findByIdAndUpdate(req.params._id, req.body)
       .then(toy => res.json(toy))
       .catch(next)
   })
