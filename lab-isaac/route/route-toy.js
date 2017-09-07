@@ -7,7 +7,7 @@ module.exports = function(router) {
   router.post('/api/toy', (req, res, next) => {
     debug('/api/toy POST');
 
-    return new Toy (res.body).save()
+    return new Toy(req.body).save()
       .then(toy => res.status(201).json(toy))
       .catch(err => next(err));
   });
@@ -22,24 +22,23 @@ module.exports = function(router) {
 
   router.get('/api/toy', (req, res, next) => {
     debug('/api/toy GET all');
-    // return storage.fetchAll()
-    //   .then(toys => res.json(toys))
-    //   .catch(next);
+    return Toy.find()
+      .then(toys => res.json(toys))
+      .catch(next);
 
   });
 
   router.put('/api/toy/:_id', (req, res, next) => {
     debug('/api/toy PUT');
-
-    // return storage.update(req.params._id, req.body)
-    //   .then(() => res.sendStatus(204))
-    //   .catch(next);
+    return Toy.findByIdAndUpdate(req.params._id, req.body)
+      .then(() => res.sendStatus(204))
+      .catch(next);
   });
 
   router.delete('/api/toy/:_id', (req, res, next) => {
     debug('/api/toy DELETE');
-    // return storage.destroy(req.params._id)
-    //   .then(() => res.sendStatus(204))
-    //   .catch(next);
+    return Toy.findByIdAndRemove(req.params._id)
+      .then(() => res.sendStatus(204))
+      .catch(next);
   });
 };
