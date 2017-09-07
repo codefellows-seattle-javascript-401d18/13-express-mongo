@@ -1,10 +1,13 @@
-'use strict'
+'use strict';
 
-const Promise = require('bluebird')
-const superagent = require('superagent')
-const fs = Promise.promisifyAll(require('fs'), {suffix: 'Prom'})
-require('../../lib/server').listen(3000)
-require('jest')
+// const Promise = require('bluebird')
+const superagent = require('superagent');
+// const fs = Promise.promisifyAll(require('fs'), {suffix: 'Prom'})
+
+
+
+require('../../lib/server').listen(3000); //starts up the server, the listen actually kicks off the Listen open resond close loop.
+require('jest');
 
 describe('Testing toy routes', function() {
   describe('all requests to /api/toy', () => {
@@ -20,20 +23,20 @@ describe('Testing toy routes', function() {
             .then(res => {
               this.mockToy = res.body
               this.resPost = res
-              done()
-            })
-        })
+              done();
+            });
+        });
         test('should create and return a new toy, given a valid request', () => {
-          expect(this.mockToy).toBeInstanceOf(Object)
+          expect(this.mockToy).toBeInstanceOf(Object);
           expect(this.mockToy).toHaveProperty('name')
-          expect(this.mockToy).toHaveProperty('desc')
-          expect(this.mockToy).toHaveProperty('_id')
+          expect(this.mockToy).toHaveProperty('desc');
+          expect(this.mockToy).toHaveProperty('_id');
         })
         test('should have a name, given a valid request', () => {
-          expect(this.mockToy.name).toBe('barney')
+          expect(this.mockToy.name).toBe('barney');
         })
         test('should have a desc, given a valid request', () => {
-          expect(this.mockToy.desc).toBe('purple dino')
+          expect(this.mockToy.desc).toBe('purple dino');
         })
         test('should have an _id, given a valid request', () => {
           expect(this.mockToy._id).toMatch(/([a-f0-9]{8}(-[a-f\d]{4}){3}-[a-f\d]{12}?)/i)
