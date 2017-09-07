@@ -1,6 +1,6 @@
 'use strict';
 
-const Toy = require('..model/toy');
+const Toy = require('../model/toy');
 const debug = require('debug')('http:route-toy');
 
 module.exports = function(router) {
