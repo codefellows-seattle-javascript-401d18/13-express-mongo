@@ -26,6 +26,9 @@ module.exports = function(router) {
     // return storage.fetchAll()
     //   .then(ids => res.json(ids))
     //   .catch(next);
+    return Toy.find(req.params._id)
+      .then(toy => res.json(toy))
+      .catch(next);
   });
 
   router.put('/api/toy/:_id', (req, res, next) => {
@@ -34,6 +37,9 @@ module.exports = function(router) {
     // return storage.update(req.params._id, req.body)
     //   .then(() => res.sendStatus(204))
     //   .catch(next);
+    return Toy.update(req.params._id)
+      .then(toy => res.json(toy))
+      .catch(next);
   });
 
   router.delete('/api/toy/:_id', (req, res, next) => {
@@ -42,5 +48,8 @@ module.exports = function(router) {
     // return storage.destroy(req.params._id)
     //   .then(() => res.sendStatus(204))
     //   .catch(next);
+    return Toy.remove(req.params._id)
+      .then(toy => res.json(toy))
+      .catch(next);
   });
 };
