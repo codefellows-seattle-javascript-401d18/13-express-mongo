@@ -39,8 +39,8 @@ module.exports = function(router) {
   router.delete('/api/toy/:_id', (req, res, next) => {
     debug('/api/toy DELETE');
 
-    // return storage.destroy(req.params._id)
-    // .then(() => res.sendStatus(204))
-    // .catch(next)
+    return Toy.findByIdAndRemove(req.params._id)
+      .then(() => res.sendStatus(204))
+      .catch(next);
   });
 };
