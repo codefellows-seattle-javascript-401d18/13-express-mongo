@@ -27,7 +27,6 @@
           3. Then start up nodemon in a separate terminal window.
 
 
-
 # Mongo database steps:
 1. Create a toy directory in the data directory.
 2. Have four windows open.
@@ -91,7 +90,10 @@ X-Powered-By: Express
     - db.toys.drop() will drop those collections
 
 
-
+# NOTES FOR MYSELF:
+- On lab 13 Tests are passing at 81.54%
+- need to keep working on them
+- but also need to start lab 14 now 3pm on 9/7s
 
 HOW TO TEST POST IN Mongo:
 
@@ -153,6 +155,9 @@ General:
   npm run debugger
     - You should then see:
     > node inspect server.js
+
+  - troubleshooting seeing ECONNREFUSED in terminal:
+    - open another window and run 'mongod --dbpath ./data/db'
 
 
 
