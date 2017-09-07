@@ -34,7 +34,7 @@ module.exports = function (router) {
   //need to refactor
   router.put('/api/toy', (req, res) => {
     //I know this doesn't work but it's something like this
-    //findbyIdAnd
+    //findbyIdAndUpdate should have worked, but for some reason it didn't for me
     let selected = Toy.findById(req.params._id);
     Toy.save()
       .then((toy) => res.status(204))
@@ -44,6 +44,7 @@ module.exports = function (router) {
   //need to refactor
   router.delete('/api/toy', (req, res) => {
     debug('/api/data DELETE');
+    //findbyIdandRemove should have worked for me, but couldn't get it to work in the db
     let selected = Toy.findById(req.params._id);
     selected.remove()
       .then(() => res.status(204))
