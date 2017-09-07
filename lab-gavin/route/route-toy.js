@@ -24,14 +24,14 @@ module.exports = function(router) {
     debug('/api/toy GET');
 
     return Toy.find()
-      .then(toy => res.json(toy))
+      .then(toys => res.json(toys.map(toy => toy._id)))
       .catch(next);
   });
 
   router.put('/api/toy/:_id', (req, res, next) => {
     debug('/api/toy PUT');
 
-    return Toy.findByIdAndUpdate(req.params._id, req.body, {new:true})
+    return Toy.findByIdAndUpdate(req.params._id, req.body, {upsert:true, runValidators:true})
       .then(toy => res.json(toy))
       .catch(next);
   });
@@ -39,7 +39,7 @@ module.exports = function(router) {
   router.delete('/api/toy/:_id', (req, res, next) => {
     debug('/api/toy DELETE');
 
-    return Toy.findByIdAndUpdate(req.params._id).remove()
+    return Toy.findByIdAndRemove(req.params._id)
       .then(() => res.sendStatus(204))
       .catch(next);
   });
