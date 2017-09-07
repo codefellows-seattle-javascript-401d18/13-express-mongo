@@ -1,13 +1,13 @@
-# *SeveringUpSomeMongXpresso*
+#Shaun Wahle - Lab-13 - Using Express for the power of good with the help of Mongo
 
-## Servering the best MongXpresso Experience around.
+#Lab-10
 
+##Overview
 
-## Server request and response demonstration using Express, node.js, and MongoDB.
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
+The purpose of the lab was to make a Create a HTTP Server using the http module that we could GET, POST, PUT, and DELETE a simple resource to. We are utilizing the MongoDB for the first time to save our data!
 
-## Project Description
-Using node.js, HTTP, superagent, Express, MongoDB, and Mongoose I have created a Server that responds to different GET, POST, PUT, and DELETE responses from a developer position. The requests can interact with a local Database managed with MongoDB. This project represents what is possible with a few simple tools. We can create a Database from POST requests with the information provided by the dev. Then we can interact with the database with GET, PUT, and DELETE.
+##How To Use
+Fork this repository and clone the forked repository anywhere you'd like on your computer.
 
 ## Table of Contents
 + [Installation](#installation)
@@ -21,7 +21,7 @@ Using node.js, HTTP, superagent, Express, MongoDB, and Mongoose I have created a
   + Navigate to the folder where you did your git clone with your newly forked repository.
   + Make sure you are in the root directory IE. lab-gavin.;
   + Type `npm i` into your terminal.
-+ Open *Four* terminal windows.
++ Open *Three* terminal windows.
 + In the first terminal type
   + `npm run start:watch`
 
@@ -88,7 +88,3 @@ Using node.js, HTTP, superagent, Express, MongoDB, and Mongoose I have created a
 
 ### Usage
 This app is completely free to be used however you'd like!
-
-
-### About
-I am currently a Full Stack Web Developer with focus in UX. If you are interested in using me for any of your projects please feel free to reach out to me!
