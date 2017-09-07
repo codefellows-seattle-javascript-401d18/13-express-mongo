@@ -1,14 +1,13 @@
 'use strict';
 
-const storage = require('../lib/storage');
+const Toy = require('..model/toy');
 const debug = require('debug')('http:route-toy');
 
 module.exports = function(router) {
-
   router.post('/api/toy', (req, res, next) => {
     debug('/api/toy POST');
 
-    return storage.create(req.body)
+    return new Toy(req.body).save()
       .then(toy => res.status(201).json(toy))
       .catch(err => next(err));
   });
@@ -16,7 +15,7 @@ module.exports = function(router) {
   router.get('/api/toy/:_id', (req, res, next) => {
     debug('/api/toy GET');
 
-    return storage.fetchOne(req.params._id)
+    return Toy.findById(req.params._id)
       .then(toy => res.json(toy))
       .catch(next);
   });
@@ -24,16 +23,16 @@ module.exports = function(router) {
   router.get('/api/toy', (req, res, next) => {
     debug('/api/toy GET');
 
-    return storage.fetchAll()
-      .then(ids => res.json(ids))
+    return Toy.find()
+      .then(toy => res.json(toy))
       .catch(next);
   });
 
   router.put('api/toy/:_id', (req, res, next) => {
     debug('/api/toy PUT');
 
-    return storage.update(req.params._id, req.body)
-      .then(() => res.sendStatus(204))
+    return Toy.findByIdandUpdate(req.params._id, req.body)
+      .then(toy => res.json(toy))
       .catch(next);
   });
 
@@ -41,8 +40,8 @@ module.exports = function(router) {
   router.delete('/api/toy:_id', (req, res, next) => {
     debug('api/toy DELETE');
 
-    return storage.destroy(req.params._id)
-      .then(() => res.sendStatus(204))
+    return Toy.findById(req.params._id).remove()
+      .then(toy => res.json(toy))
       .catch(next);
   });
 };

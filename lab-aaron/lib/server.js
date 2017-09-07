@@ -8,6 +8,12 @@ const router = express.Router();
 const app = express();
 debug('shut up debug');
 
+// mongoose setup
+const mongoose = require('mongoose');
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb:localhost/toy-dev';
+mongoose.Promise = require('bluebird');
+mongoose.connect(MONGODB_URI, {useMongoClient: true});
+
 // setting up middleware
 const bodyParser = require('body-parser').json();
 const cors = require('./cors-middleware');
