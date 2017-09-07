@@ -1,7 +1,7 @@
-# API using Express
+# API using Express _and MongoDB_
 
 ## Description
-We get to use Express!
+We get to use Mongo DB!
 This API allows you to define and GET/PUT/POST/DELETE a toy object that has a name, description, and unique ID. Additionally, you can store that toy within the object that represents memory. Basically, we are practicing writing a router from scratch, instead of using Express - meaning we explicitly define what happens when we POST/PUT/GET/DELETE to this API.
 
 ## Getting Started
@@ -9,6 +9,9 @@ This API allows you to define and GET/PUT/POST/DELETE a toy object that has a na
 Download from GitHub
 npm i
 ```
+
+## Mongo DB
+You will also need to install Mongo DB & mongoose (included in the dependencies), so our data can live in a happy little database.
 
 ## Endpoints & Request/Responses
 Our endpoint is: /api/toy/
@@ -42,7 +45,7 @@ _Success status code of 204_
 
 
 ## Resources I Used:
-+ Demo code from Scott today (retyped)
-+ Demo code from 09 code review
-+ Express docs: http://expressjs.com/en/guide/routing.html
-+ Pair programming on lab 09 with Said and Maddy - helped me get some grasp on what this lab is doing
++ Today's lab notes
++ Mongoose docs
++ The Googz
++ [This article](https://coursework.vschool.io/mongoose-crud/)
