@@ -26,7 +26,6 @@ module.exports = function(router) {
 
     return Toy.find()
       .then(toys => res.json(toys.map(toy => toy._id)))
-      //.then(toy => res.status(200).json(toy))
       .catch(next);
   });
 
