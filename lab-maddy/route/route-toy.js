@@ -22,10 +22,9 @@ module.exports = function(router) {
 
   router.get('/api/toy', (req, res, next) => {
     debug('/api/toy GET');
-    //
-    // return storage.fetchAll()
-    //   .then(ids => res.json(ids))
-    //   .catch(next)
+    return Toy.find()
+      .then(toys => res.json(toys.map(toy => toy._id)))
+      .catch(next)
   });
 
   //Said was a huge help here
@@ -34,7 +33,7 @@ module.exports = function(router) {
 
     return Toy.findByIdAndUpdate(req.params._id, req.body, { upsert: true, runValidators: true }) //then pass in a few options in {}. new takes a boolean value. upsert, set it to true. If we don't have the run validators and we run a findbyIDandUpdate. this helps validate that if hte string has been changed to a number (mutated), we need to still make sure we meet that criteria.
     //upsert - update/insert- if true and no records match the query, insert update as a new record.
-      .then((toy) => res.json(toy))
+      .then((toy) => res.sendStatus(204))
       .catch(next);
   });
 
