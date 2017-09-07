@@ -24,24 +24,23 @@ module.exports = function(router) {
     debug('/api/toy GET');
 
     return Toy.find()
-      .then(toy => res.json(toy))
+      .then(toys => res.json(toys.map(toy => toy._id)))
       .catch(next);
   });
 
   router.put('api/toy/:_id', (req, res, next) => {
     debug('/api/toy PUT');
 
-    return Toy.findByIdandUpdate(req.params._id, req.body)
-      .then(toy => res.json(toy))
+    return Toy.findByIdandUpdate(req.params._id, req.body, { upsert: true, runValidators:true })
+      .then(() => res.sendStatus(204))
       .catch(next);
   });
-
 
   router.delete('/api/toy:_id', (req, res, next) => {
     debug('api/toy DELETE');
 
-    return Toy.findById(req.params._id).remove()
-      .then(toy => res.json(toy))
+    return Toy.findByIdandRemove(req.params._id)
+      .then(() => res.sendStatus(204))
       .catch(next);
   });
 };
