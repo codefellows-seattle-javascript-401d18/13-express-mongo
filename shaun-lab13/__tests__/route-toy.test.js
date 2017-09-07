@@ -2,7 +2,6 @@
 
 // const Promise = require('bluebird');
 const superagent = require('superagent');
-require('dotenv').confog({ path: `${__dirname}/lib/.test.env`})
 // const fs = Promise.promisifyAll(require('fs'), {suffix: 'Prom'});
 require('../lib/server').listen(3000);
 require('jest');
