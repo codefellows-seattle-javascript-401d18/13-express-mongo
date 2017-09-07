@@ -1,76 +1,109 @@
 'use strict';
 
-const server = require('../../server.js');
+const Promise = require('bluebird');
 const superagent = require('superagent');
+const fs = Promise.promisifyAll(require('fs'), {suffix: 'Prom'});
+require('../../lib/server').listen(3000);
+require('jest');
 
-describe('Testing the route-toy.js file', function() {
-  // let returnRes;
-  afterAll((done) => {
-    server.close(done);
+describe('Testing toy routes', function() {
+  describe('all requests to /api/toy', () => {
+    describe('POST requests', () => {
+      describe('Valid Requests', () => {
+        beforeAll(done => {
+          superagent.post(':3000/api/toy')
+            .type('application/json')
+            .send({
+              name: 'barney',
+              desc: 'purple dino',
+            })
+            .then(res => {
+              this.mockToy = res.body;
+              this.resPost = res;
+              done();
+            });
+        });
+        test('should create and return a new toy, given a valid request', () => {
+          expect(this.mockToy).toBeInstanceOf(Object);
+          expect(this.mockToy).toHaveProperty('name');
+          expect(this.mockToy).toHaveProperty('desc');
+          expect(this.mockToy).toHaveProperty('_id');
+        });
+        test('should have a name, given a valid request', () => {
+          expect(this.mockToy.name).toBe('barney');
+        });
+        test('should have a desc, given a valid request', () => {
+          expect(this.mockToy.desc).toBe('purple dino');
+        });
+        test('should have an _id, given a valid request', () => {
+          expect(this.mockToy._id).toMatch(/^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i);
+        });
+        test('should return a 201 CREATED, given a valid request', () => {
+          expect(this.resPost.status).toBe(201);
+        });
+      });
+      describe('Invalid Requests', () => {
+        // TODO: error status, message, name, bad endpoint
+        beforeAll(done => {
+          superagent.post(':3000/api/toy')
+            .type('application/json')
+            .send({})
+            .catch(err => {
+              this.errPost = err;
+              done();
+            });
+        });
+        test('should return a status of 400 Bad Request', () => {
+          expect(this.errPost.status).toBe(400);
+          expect(this.errPost.message).toBe('Bad Request');
+        });
+        test('should return 404 on invalid endpoint', done => {
+          superagent.post(':3000/bad/endpoint')
+            .type('application/json')
+            .send({})
+            .catch(err => {
+              expect(err.status).toBe(404);
+              done();
+            });
+        });
+      });
+    });
+    xdescribe('GET requests', () => {
+      test('should get the record from the toy dir', done => {
+
+        done();
+      });
+    });
+    xdescribe('PUT requests', () => {
+      test('should have ...', done => {
+
+        done();
+      });
+    });
+    describe('DELETE requests', () => {
+      describe('Valid Requests', () => {
+        beforeAll(done => {
+          superagent.delete(`:3000/api/toy/${this.mockToy._id}`)
+            .then(res => {
+              this.resDelete = res;
+              done();
+            });
+        });
+        test('should return a 204 No Content', () => {
+          expect(this.resDelete.status).toBe(204);
+        });
+        test('should remove the record from the toy dir', done => {
+          fs.readdirProm(`${__dirname}/../../data/toy`)
+            .then(files => {
+              let expectedFalse = files.includes(`${this.mockToy._id}.json`);
+              expect(expectedFalse).toBeFalsy();
+              done();
+            });
+        });
+      });
+      describe('Invalid Requests', () => {
+
+      });
+    });
   });
-  describe('Using POST method, /api/toy endpoint', () => {
-    test('A POST request without body shoud return 400', done => {
-      superagent.post(':3000/api/toy')
-        .set('Content-Type', 'application/json')
-        .end((err, res) => {
-          expect(res.status).toBe(400);
-          done();
-        });
-    });
-
-    test('', done => {
-      superagent.post(':3000/api/toy')
-        .send({'name': 'zipper', 'desc': 'stuffed animal cat with zip up coat'})
-        .set('Content-Type', 'application/json')
-        .end((err, res) => {
-          this.returnRes = res;
-          expect(res.status).toBe(201);
-          done();
-        });
-    });
-
-    // test('', done => {
-    //   superagent.post(':3000/api/toy')
-    //     .set('Content-Type', '')
-    //     .end((err, res) => {
-    //       expect().toBe();
-    //       done();
-    //     });
-    // });
-  });
-
-  describe('Using GET method, /api/toy endpoint', () => {
-    test('Request made with valid id should return 200', done => {
-      superagent.get(`:3000/api/toy?_id=${this.returnRes.body._id}`)
-        .set('Content-Type', 'text/plain')
-        .end((err, res) => {
-          expect(res.status).toBe(200);
-          done();
-        });
-    });
-
-    test.only('A valid id w/id not found should return 404', () => {
-      superagent.get(':3000/api/toy?_id=5532439a-a7da-4f9e-a3d2-4f827b611624')
-        .set('Content-Type', 'text/plain')
-        .catch(err => {
-          expect(err).not.toBeNull();
-        });
-        // .end((err, res) => {
-        //   expect(res.status).toBe(404);
-        //   done();
-        // });
-    });
-
-    test('No id provided should return 400', done => {
-      superagent.get(':3000/api/toy')
-        .set('Content-Type', 'text/plain')
-        .end((err, res) => {
-          expect(res.status).toBe(400);
-          done();
-        });
-    });
-
-  });
-
-
 });

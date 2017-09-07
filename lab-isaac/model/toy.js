@@ -7,5 +7,6 @@ const Toy = mongoose.Schema({
   name: {type: String, require: true},
   desc: {type: String, require:true},
 }, {timestamps: true});
+debug('#Toy model');
 
-module.exports = mongoose.model('goose', Toy);
+module.exports = mongoose.model('toy', Toy);
