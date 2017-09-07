@@ -25,7 +25,8 @@ module.exports = function(router) {
     debug('/api/toy GET all');
 
     return Toy.find()
-      .then(toy => res.status(200).json(toy))
+      .then(toys => res.json(toys.map(toy => toy._id)))
+      //.then(toy => res.status(200).json(toy))
       .catch(next);
   });
 

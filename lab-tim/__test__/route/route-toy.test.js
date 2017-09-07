@@ -1,8 +1,8 @@
 'use strict';
 
-const Promise = require('bluebird');
+//const Promise = require('bluebird');
 const superagent = require('superagent');
-const fs = Promise.promisifyAll(require('fs'), {suffix: 'Prom'});
+//const fs = Promise.promisifyAll(require('fs'), {suffix: 'Prom'});
 const PORT = process.env.PORT || 3000;
 require('../../lib/server').listen(PORT);
 require('jest');
