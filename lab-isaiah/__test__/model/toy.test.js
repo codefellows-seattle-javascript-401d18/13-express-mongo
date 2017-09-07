@@ -2,7 +2,7 @@
 
 describe('ModuleName', function () {
   describe('default properties', () => {
-    test('should have ...', done => {
+    test('should have schema defined:', done => {
       expect(true).toBeTrue;
       done();
     });
