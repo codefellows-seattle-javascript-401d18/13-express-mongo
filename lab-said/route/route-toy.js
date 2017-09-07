@@ -23,17 +23,17 @@ module.exports = function(router) {
   router.get('/api/toy', (req, res, next) => {
     debug('/api/toy GET');
 
-    // return storage.fetchAll()
-    // .then(ids => res.json(ids))
-    // .catch(next)
+    return Toy.find(req.body)
+      .then(ids => res.json(ids))
+      .catch(next);
   });
 
   router.put('/api/toy/:_id', (req, res, next) => {
     debug('/api/toy PUT');
 
-    // return storage.update(req.params._id, req.body)
-    // .then(() => res.sendStatus(204))
-    // .catch(next)
+    return Toy.findByIdAndUpdate(req.params._id, req.body)
+      .then(() => res.sendStatus(204))
+      .catch(next);
   });
 
   router.delete('/api/toy/:_id', (req, res, next) => {
