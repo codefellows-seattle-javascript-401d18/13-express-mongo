@@ -44,9 +44,11 @@
 5. Third window- 'npm run start:watch' within the lab folder of the project(ie- lab-maddy) to get the server running and listening for changes
 6. Back in second window- 'mongo'
 
-7. In forth window within lab-maddy folder-
+7. In forth window within lab-maddy folder, use this one to ping your server and make http requestss-
 
 'http POST :3000/api/toy name=gavin desc=human'
+
+* If the name and desc are not strings, mongo will throw a 400 error.
 
 should see:
 ```
@@ -84,7 +86,9 @@ X-Powered-By: Express
   - should see:
   toys //mine still says gooses....
 
-
+11. Then "db.toys."
+    - to make sure things are being posted-- db.toys.find()
+    - db.toys.drop() will drop those collections
 
 
 
