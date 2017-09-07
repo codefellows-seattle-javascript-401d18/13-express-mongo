@@ -1,4 +1,4 @@
-# *SeveringUpSomeExpresso*
+# *SeveringUpSomeMongXpresso*
 # Servering the best MongXpress Experience around.
 
 # Server request and response demonstration using Express, node.js, and MongoDB.
