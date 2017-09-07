@@ -33,7 +33,7 @@ module.exports = function(router) {
    debug('/api/toy PUT');
 
    return Toy.findByIdAndUpdate(req.params._id, req.body)
-     .then((toy) => res.json(toy));
+     .then((toy) => res.json(toy))
      .catch(next);
  });
 

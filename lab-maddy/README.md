@@ -27,8 +27,71 @@
           3. Then start up nodemon in a separate terminal window.
 
 
+
+# Mongo database steps:
+1. Create a toy directory in the data directory.
+2. Have four windows open.
+3. First window- 'mongod --dbpath ./data/db'
+
+4. Second window- 'npm install mongodb' within the lab-maddy/data/db folder to start the mongo shell (to be able to see the database data)
+  - should see:
+    MongoDB shell version v3.4.7
+    connecting to: mongodb://127.0.0.1:27017
+    MongoDB server version: 3.4.7
+    Welcome to the MongoDB shell.
+    For interactive help, type "help".
+
+5. Third window- 'npm run start:watch' within the lab folder of the project(ie- lab-maddy) to get the server running and listening for changes
+6. Back in second window- 'mongo'
+
+7. In forth window within lab-maddy folder-
+
+'http POST :3000/api/toy name=gavin desc=human'
+
+should see:
+```
+HTTP/1.1 201 Created
+Allow-Access-Control-Headers: *
+Allow-Access-Control-Origin: *
+Connection: keep-alive
+Content-Length: 150
+Content-Type: application/json; charset=utf-8
+Date: Thu, 07 Sep 2017 15:37:08 GMT
+ETag: W/"96-NeBQ0TqCqht21DpkTG/FZh+C+bs"
+X-Powered-By: Express
+
+{
+    "__v": 0,
+    "_id": "59b167a41f2258fbdb489cc1",
+    "createdAt": "2017-09-07T15:37:08.242Z",
+    "desc": "human",
+    "name": "gavin",
+    "updatedAt": "2017-09-07T15:37:08.242Z"
+}
+```
+
+8. Back in the second window- 'show dbs'
+  - should see:
+  admin    0.000GB
+  local    0.000GB
+  toy-dev  0.000GB
+
+9. Then type- 'use toy-dev'
+  - should see:
+  switched to db toy-dev
+
+10. Then type- 'show collections'
+  - should see:
+  toys //mine still says gooses....
+
+
+
+
+
+
 HOW TO TEST POST IN Mongo:
 
+http POST :3000/api/toy name=gavin desc=human
 
 HOW TO TEST GET with Mongo:
 
