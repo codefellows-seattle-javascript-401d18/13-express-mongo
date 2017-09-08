@@ -29,7 +29,7 @@
 
 # Mongo database steps:
 1. Create a toy directory in the data directory.
-2. Have four windows open.
+2. Have four windows open in terminal.
 3. First window- 'mongod --dbpath ./data/db'
 
 4. Second window- 'npm install mongodb' within the lab-maddy/data/db folder to start the mongo shell (to be able to see the database data)
@@ -83,12 +83,15 @@ X-Powered-By: Express
 
 10. Then type- 'show collections'
   - should see:
-  toys //mine still says gooses....
+  toys
 
-11. Then "db.toys."
-    - to make sure things are being posted-- db.toys.find()
+11. Then- 'db.toys.find()'. To make sure toys are being posted.
+    Should see:
+    ```
+    { "_id" : ObjectId("59b167a41f2258fbdb489cc1"), "updatedAt" : ISODate("2017-09-07T15:37:08.242Z"), "createdAt" : ISODate("2017-09-07T15:37:08.242Z"), "name" : "gavin", "desc" : "human", "__v" : 0 }
+    ```
+
     - db.toys.drop() will drop those collections
-
 
 # NOTES FOR MYSELF:
 - On lab 13 Tests are passing at 81.54%
@@ -100,6 +103,9 @@ HOW TO TEST POST IN Mongo:
 http POST :3000/api/toy name=gavin desc=human
 
 HOW TO TEST GET with Mongo:
+
+http GET :3000/api/toy/f18a6d2b-753c-41f6-9c28-d2a7f0b41f21
+
 
 ```
 
