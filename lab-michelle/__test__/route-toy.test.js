@@ -1,5 +1,3 @@
-//For the record, I know these tests don't work because I haven't had time to get to them really, but I at least wrote one to sort of show that I can scaffold out some sort of test. I did check to see if the method works in MongoDB. Also - just wondering why we have to have tests in this one if we know that stuff is posting properly in mongo?
-
 'use strict';
 const superagent = require('superagent');
 const server = require('../lib/server');
