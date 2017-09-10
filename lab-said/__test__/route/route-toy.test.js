@@ -93,7 +93,7 @@ describe('Testing toy routes', function() {
             });
         });
       });
-      
+
       describe('Invalid Requests', () => {
         test('should return 500 for bad ID', done => {
           superagent.get(`localhost:3000/api/toy/33533636`)
@@ -111,6 +111,38 @@ describe('Testing toy routes', function() {
               done();
             });
         });
+      });
+    });
+  });
+
+  describe('PUT requests', () => {
+    describe('Valid Requests', () => {
+      test('should update existing record when provided valid ID', done => {
+        superagent.put(`localhost:3000/api/toy/${this.mockToy._id}`)
+          .type('application/json')
+          .end((err, res) => {
+            expect(res.status).toEqual(200);
+            done();
+          });
+      });
+    });
+    
+    describe('Invalid Requests', () => {
+      test('should return 404 on bad endpoint', done => {
+        superagent.put(`localhost:3000/toy/api/${this.mockToy._id}`)
+          .type('application/json')
+          .end((err, res) => {
+            expect(res.status).toEqual(404);
+            done();
+          });
+      });
+      test('should return 500 with bad ID', done => {
+        superagent.put(`localhost:3000/api/toy/39750395`)
+          .type('application/json')
+          .end((err, res) => {
+            expect(res.status).toEqual(500);
+            done();
+          });
       });
     });
   });
