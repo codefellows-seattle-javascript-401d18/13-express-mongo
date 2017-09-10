@@ -126,7 +126,7 @@ describe('Testing toy routes', function() {
           });
       });
     });
-    
+
     describe('Invalid Requests', () => {
       test('should return 404 on bad endpoint', done => {
         superagent.put(`localhost:3000/toy/api/${this.mockToy._id}`)
@@ -143,6 +143,40 @@ describe('Testing toy routes', function() {
             expect(res.status).toEqual(500);
             done();
           });
+      });
+    });
+
+    describe('#DELETE', () => {
+      describe('Valid Requests', () => {
+        test('Should respond with 204 for a request with a valid resource ID.', done => {
+          superagent.delete(`localhost:3000/api/toy/${this.mockToy._id}`)
+            .type('application/json')
+            .end((err, res) => {
+              expect(res.status).toEqual(204);
+              done();
+            });
+        });
+      });
+      
+      describe('Invalid Requests', () => {
+        test('should return 404 if no resource ID was provided', done => {
+          superagent.delete('localhost:3000/api/toy')
+            .set('Content-Type', 'application/json')
+            .end((err, res) => {
+              expect(err).not.toBeNull();
+              expect(res.status).toBe(404);
+              done();
+            });
+        });
+        test('Should return 500 for valid requests made with an ID that was not found', done => {
+          superagent.delete('localhost:3000/api/toy/2223242525')
+            .type('application/json')
+            .end((err, res) => {
+              expect(err).not.toBeNull();
+              expect(res.status).toBe(500);
+              done();
+            });
+        });
       });
     });
   });
