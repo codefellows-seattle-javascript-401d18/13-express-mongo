@@ -41,6 +41,7 @@ describe('Testing toy routes', function() {
           expect(this.resPost.status).toBe(201);
         });
       });
+
       describe('Invalid Requests', () => {
         beforeAll(done => {
           superagent.post(':3000/api/toy')
@@ -61,6 +62,52 @@ describe('Testing toy routes', function() {
             .send({})
             .catch(err => {
               expect(err.status).toBe(404);
+              done();
+            });
+        });
+      });
+    });
+
+    describe('GET requests', () => {
+      describe('Valid Requests for specific ID', () => {
+        test('should get the record from the toy dir', done => {
+          superagent.get(`localhost:3000/api/toy/${this.mockToy._id}`)
+            .type('application/json')
+            .end((err, res) => {
+              expect(res.body.name).toEqual('barney');
+              expect(res.body.desc).toEqual('purple dino');
+              expect(res.status).toEqual(200);
+              done();
+            });
+        });
+      });
+
+      describe('Valid Requests for all documents', () => {
+        test('should get the record from the toy dir', done => {
+          superagent.get(`localhost:3000/api/toy`)
+            .type('application/json')
+            .end((err, res) => {
+              expect(res.body[res.body.length -1]).toEqual(this.mockToy._id);
+              expect(res.status).toEqual(200);
+              done();
+            });
+        });
+      });
+      
+      describe('Invalid Requests', () => {
+        test('should return 500 for bad ID', done => {
+          superagent.get(`localhost:3000/api/toy/33533636`)
+            .type('application/json')
+            .end((err, res) => {
+              expect(res.status).toEqual(500);
+              done();
+            });
+        });
+        test('should return 404 error for bad endpoint', done => {
+          superagent.get(`localhost:3000/toy/toy/33533636`)
+            .type('application/json')
+            .end((err, res) => {
+              expect(res.status).toEqual(404);
               done();
             });
         });
