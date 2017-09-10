@@ -25,6 +25,7 @@
     "start:watch": "nodemon index.js",
     "start:debug": "DEBUG=http* nodemon index.js",
     "test": "jest",
+    "test:exit": "jest --forceExit",
     "test:watch": "jest --watchAll",
     "lint": "eslint .",
     "lint:test": "npm run lint && npm test"

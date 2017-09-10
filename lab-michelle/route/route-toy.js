@@ -27,26 +27,19 @@ module.exports = function (router) {
     debug('/api/toy GET');
 
     return Toy.find()
-      .then(ids => res.json(ids))
+      .then(toys => res.json(toys.map(toy => toy._id)))
       .catch(next);
   });
 
-  //need to refactor
   router.put('/api/toy', (req, res) => {
-    //I know this doesn't work but it's something like this
-    //findbyIdAndUpdate should have worked, but for some reason it didn't for me
-    let selected = Toy.findById(req.params._id);
-    Toy.save()
-      .then((toy) => res.status(204))
-      .catch(err => next(err));
+    return Toy.findByIdAndUpdate(req.params._id, req.body, {upsert: true, runValidators: true})
+      .then(() => res.status(204))
+      .catch(next);
   });
 
-  //need to refactor
   router.delete('/api/toy', (req, res) => {
     debug('/api/data DELETE');
-    //findbyIdandRemove should have worked for me, but couldn't get it to work in the db
-    let selected = Toy.findById(req.params._id);
-    selected.remove()
+    return Toy.findByIdAndRemove(req.params._id)
       .then(() => res.status(204))
       .catch(next);
   });

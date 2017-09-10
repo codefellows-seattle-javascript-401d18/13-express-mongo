@@ -1,37 +1,69 @@
 'use strict';
-const superagent = require('superagent');
-const server = require('../lib/server');
-const Promise = require('bluebird');
-//we don't have a direct link to any storage in here, which feels like maybe there should be??
-const fs = Promise.promisifyAll(require('fs'), {suffix: 'Prom'});
-require('jest');
 
-describe('Testing routes', function() {
-  afterAll(done => server.close(done));
-  describe('requests to /api/toy', () => {
-    describe('POST requests', () => {
-      describe('Valid requests', ()=> {
-        beforeAll(done => {
-          superagent.post(':3000/api/toy')
-            .type('application/json')
-            .send({
-              name: 'totoro',
-              desc: 'fuzzy bear-type dealybob',
-            })
-            .then(res => {
-              this.mockToy = res.body;
-              this.resPost = res;
-              done();
-            });
+const Toy = require('../../model/toy');
+const superagent = require('superagent');
+require('jest');
+require('../lib/server').listen(3000);
+
+describe('Testing toy routes', function() {
+  describe('all requests to /api/toy', () => {
+    describe('POST reqs', () => {
+      describe('Valid reqs', () => {
+        test//thing here
+      });
+      describe('Invalid Reqs', ()=> {
+        //a test here
+      });
+    });
+
+    describe('GET reqs', () => {
+      describe('Valid reqs', () => {
+        //a test here
+      });
+      describe('Invalid reqs', () => {
+        //a test here
+      });
+    });
+
+    describe('PUT reqs', function() {
+      beforeAll(() => {
+        return superagent.post(`:3000/api/toy`)
+        .send({name:'Moana', desc: 'sailor lady'})
+        .then(res => {
+          this.resPost = res;
         });
-        test('should create a toy in db(toy-dev) w/collection of toys', () => {
-          expect(this.mockToy.name).toBe('totoro');
-          //how will we know that it went in the mongo database specifically though? Just through the code we required in? It seems like we should be specifying somewhere where this mocktoy.name will actually be??
+      });
+      afterAll(() => {
+        return Promise.all([
+          Toy.remove();
+        ]);
+      });
+      describe('Valid reqs', () => {
+        test('should return a status of 204 No Content', ()=> {
+          return superagent.put(`:3000/api/toy/${this.resPost.body._id}`)
+          .send({name: 'Moana', desc:'Badass wayfinder'})
+          .then(res => {
+            expect(res.status).toBe(204);
+          });
+          test('should update the existing record in the DB', () => {
+            return superagent.get(`:3000/api/toy/${this.resPost.body._id}`)
+            .then(res => {
+              expect(res.body.name).toBe('Moana')
+              expect(res.body.desc).toBe('Badass wayfinder')
+            });
+          });
+        });
+        describe('Invalid reqs', () => {
+          //test here
+        });
+      });
+      describe('DELETE reqs', ()=> {
+        describe('Valid reqs', ()=> {
+          //test here
+        });
+        describe('Invalid reqs', ()=> {
+          //test here
         });
       });
     });
-    describe('Invalid requests', () => {
-
-    });
   });
-});

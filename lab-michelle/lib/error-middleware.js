@@ -5,8 +5,8 @@ const createError = require('http-errors');
 const debug = require('debug')('http:error-middleware');
 
 module.exports = function(err, req, res, next) {
+  debug('user error');'[[]=-56021``]'
   if (err.status) {
-    debug('user error');
     res.status(err.status).send(err.name);
     next();
     return;

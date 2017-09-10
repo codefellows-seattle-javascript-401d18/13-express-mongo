@@ -21,7 +21,6 @@ const errorMiddleware = require('./error-middleware');
 
 //routes
 require('../route/route-toy')(router);
-//we will add kid here later
 
 //mount middleware
 app.use(bodyParser);
