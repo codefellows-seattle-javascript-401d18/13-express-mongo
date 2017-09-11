@@ -1,8 +1,8 @@
 'use strict';
 
 const superagent = require('superagent');
-
 require('../lib/server').listen(3000);
+
 require('jest');
 
 describe('Testing toy routes', function() {
@@ -157,7 +157,7 @@ describe('Testing toy routes', function() {
             });
         });
       });
-      
+
       describe('Invalid Requests', () => {
         test('should return 404 if no resource ID was provided', done => {
           superagent.delete('localhost:3000/api/toy')
