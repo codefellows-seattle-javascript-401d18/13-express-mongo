@@ -14,7 +14,7 @@ module.exports = function(router) {
 
   router.get('/api/toy/:_id', (req, res, next) => {
     debug('/api/toy/:_id GET');
-
+    // console.log('this is next', next);
     return Toy.findById(req.params._id)
       .then(toy => res.json(toy))
       .catch(next);
@@ -23,14 +23,14 @@ module.exports = function(router) {
   router.get('/api/toy', (req, res, next) => {
     debug('/api/toy GET all');
     return Toy.find()
-      .then(toys => res.json(toys))
+      .then(toys => res.json(toys.map(toy => toy._id)))
       .catch(next);
 
   });
 
   router.put('/api/toy/:_id', (req, res, next) => {
     debug('/api/toy PUT');
-    return Toy.findByIdAndUpdate(req.params._id, req.body)
+    return Toy.findByIdAndUpdate(req.params._id, req.body, { upsert:true, runValidators:true})
       .then(() => res.sendStatus(204))
       .catch(next);
   });
