@@ -32,7 +32,7 @@ describe('Testing toy routes', function() {
           return superagent.post(`:3000/api/toy`)
             .send({})
             .catch(err => {
-              expect(err.status).toBe(500);
+              expect(err.status).toBe(400);
             });
         });
 
@@ -58,7 +58,7 @@ describe('Testing toy routes', function() {
           test('should not get a valid thing', () => {
             return superagent.get(`:3000/api/toy/2462456`)
             .catch(res => {
-              expect(res.status).toBe(500);
+              expect(res.status).toBe(404);
             });
           });
         });
@@ -80,7 +80,7 @@ describe('Testing toy routes', function() {
           test('should not get a valid thing', function() {
             return superagent.get(`:3000/api/toy/1324235`)
             .catch(res => {
-              expect(res.status).toBe(500);
+              expect(res.status).toBe(404);
             });
           });
         });
@@ -92,7 +92,7 @@ describe('Testing toy routes', function() {
         .send({name:'Moana', desc: 'sailor lady'})
         .then(res => {
           this.resPost = res;
-          console.log(res.body);
+          // console.log(res.body);
         });
       });
       afterAll(() => {
@@ -107,28 +107,28 @@ describe('Testing toy routes', function() {
           // .type('application/json')
           .send({name: 'Moana', desc:'cat person'})
           .then(res => {
-            console.log(res);
             expect(res.status).toBe(204);
             done();
           });
         });
-        test('should update the existing record in the DB', () => {
+        test('should update the existing record in the DB', done => {
           return superagent.get(`:3000/api/toy/${this.resPost.body._id}`)
           .then(res => {
             expect(res.body.name).toBe('Moana');
             expect(res.body.desc).toBe('cat person');
+            done();
           });
         });
       });
       describe('Invalid reqs', () => {
-        test('should return a 500 error', done => {
-          superagent.put(':3000/api/toy')
+        test('should return a 404 error', done => {
+          superagent.put(':3000/api/toy/badroute')
           .type('application/json')
           .send({})
           .catch(err => {
-            expect(err.status).toBe(400);
+            expect(err.status).toBe(404);
+            done();
           })
-          done();
         });
       });
     });
@@ -142,15 +142,14 @@ describe('Testing toy routes', function() {
           });
         });
         test('should return a 204 No Content', () => {
-          expect(res.status).toBe(204);
+          expect(this.resDelete.status).toBe(204);
         });
       });
       describe('Invalid reqs', ()=> {
         test('should return 404', done => {
-          superagent.delete(':3000/api/toy')
-          .query({_id: 'abionnarog'})
+          superagent.delete(`:3000/api/toy/badroute1`)
           .catch(res => {
-            expect(res.status).toBe(500);
+            expect(res.status).toBe(404);
             done();
           });
         });
