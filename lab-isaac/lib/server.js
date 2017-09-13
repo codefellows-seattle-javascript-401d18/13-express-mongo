@@ -25,12 +25,17 @@ require('../route/route-toy')(router);
 // require('../route/route-family')(router);
 
 // mount middleware
+debug('bodyParser');
 app.use(bodyParser);
+debug('cors');
 app.use(cors);
+debug('router');
 app.use(router);
 //this should be the last to catch errors with the callback chain
+debug('errorMiddleware');
 app.use(errorMiddleware);
-
+debug('app.all');
 app.all('/*', (req, res) => res.sendStatus(404));
+
 
 module.exports = app;

@@ -68,13 +68,13 @@ describe('Testing toy routes', function() {
         });
       });
     });
-    xdescribe('GET requests', () => {
+    describe('GET requests', () => {
       test('should get the record from the toy dir', done => {
 
         done();
       });
     });
-    xdescribe('PUT requests', () => {
+    describe('PUT requests', () => {
       test('should have ...', done => {
 
         done();
